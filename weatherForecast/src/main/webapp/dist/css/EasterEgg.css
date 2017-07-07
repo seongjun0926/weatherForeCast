@@ -1,0 +1,31 @@
+*{
+	background-color: #F3F3F3;
+}
+.container {
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#easterEggMain{
+	width: 600px;
+	height: auto;
+
+}
+.easterEggSub1{
+	top: 220px;
+	left: 780px;
+	z-index: 1;
+	position: absolute;
+	background-color: #ffd924;
+	border-radius: 25px;
+}
+.easterEggSub2{
+	top: 220px;
+	left: 940px;
+	z-index: 1;
+	position: absolute;
+	background-color: #ffd924;
+	border-radius: 25px;
+
+}

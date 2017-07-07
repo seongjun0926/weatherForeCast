@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="sqlSessionFactory">
+		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+		<property name="hibernate.connection.url">jdbc:microsoft:sqlserver://gscsm.asuscomm.com:41433;DatabaseName=giss_dev;SelectMethod=cursor</property>
+		<property name="hibernate.connection.username">sys_sks</property>
+		<property name="hibernate.connection.password">sys_sks!@#$%</property>
+		<property name="hibernate.default_schema">giss_dev</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+
+		<mapping resource="com.gsitm.weatherForecast.vo.WeatherVo.hbm.xml" />
+		<mapping resource="com.gsitm.weatherForecast.vo.WeatherDetailVo.hbm.xml" />
+		<mapping resource="com.gsitm.weatherForecast.vo.TemperatureVo.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

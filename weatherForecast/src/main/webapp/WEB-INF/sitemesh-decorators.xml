@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/view/common/decorators">
+
+	<!-- 제외할 패턴 -->
+	<excludes>
+		<pattern>/login.do</pattern>
+		<pattern>/login.do?error</pattern>
+		<pattern>*Ajax*.do</pattern>
+	</excludes>
+
+	<!-- Ajax 패턴 -->
+	<decorator name="ajax" page="blank.jsp">
+		<pattern>*_ExcelDownload.do</pattern>
+		<pattern>*_ExcelUpload.do</pattern>
+	</decorator>
+	
+	<!-- Login 패턴 -->
+	<decorator name="login" page="login.jsp">
+		<pattern>/Login_*.do</pattern>
+	</decorator>
+
+	<!-- Popup 패턴 -->
+	<decorator name="popup" page="popup.jsp">
+		<pattern>*_Popup_*.do</pattern>
+	</decorator>
+	
+	<!-- 기본 패턴 -->
+	<decorator name="default" page="default.jsp">
+		<pattern>*.do</pattern> 
+	</decorator>
+</decorators>

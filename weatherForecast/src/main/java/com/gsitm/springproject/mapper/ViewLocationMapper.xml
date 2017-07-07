@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gsitm.springproject.mapper.ViewLocationMapper">
+	                                                
+	<resultMap id="viewLocationVo" type="com.gsitm.springproject.vo2.ViewLocationVo">
+		<result property="msrsteName" column="MSRSTENAME" javaType="String"/>
+		<result property="wido" column="WIDO" javaType="String"/>
+		<result property="geuogdo" column="GEUOGDO" javaType="String"/>
+		<result property="maxIndex" column="MAXINDEX" javaType="String"/>
+		<result property="grade" column="GRADE" javaType="String"/>
+		<result property="pollutant" column="POLLUTANT" javaType="String"/>
+		<result property="nitrogen" column="NITROGEN" javaType="String"/>
+		<result property="ozone" column="OZONE" javaType="String"/>
+		<result property="carbon" column="CARBON" javaType="String"/>
+		<result property="sulfurous" column="SULFUROUS" javaType="String"/>
+		<result property="pm10" column="PM10" javaType="String"/>
+		<result property="pm25" column="PM25" javaType="String"/>
+	</resultMap>
+	
+	<select id="readViewLocation" resultMap="viewLocationVo">
+          SELECT L.MSRSTENAME as MSRSTENAME, S.WIDO as WIDO, S.GEUOGDO as GEUOGDO, L.MAXINDEX as MAXINDEX, L.GRADE as GRADE, L.POLLUTANT as POLLUTANT, L.NITROGEN as NITROGEN, L.OZONE as OZONE, L.CARBON as CARBON, L.SULFUROUS as SULFUROUS, L.PM10 as PM10, L.PM25 as PM25 
+            FROM LOCATIONPARSE L
+            JOIN SEOUL S ON L.MSRSTENAME = S.NAME
+	</select>
+
+	<select id="readViewLocationType" resultMap="viewLocationVo" parameterType="String">
+          SELECT L.MSRSTENAME as MSRSTENAME, S.WIDO as WIDO, S.GEUOGDO as GEUOGDO, L.MAXINDEX as MAXINDEX, L.GRADE as GRADE, L.POLLUTANT as POLLUTANT, L.NITROGEN as NITROGEN, L.OZONE as OZONE, L.CARBON as CARBON, L.SULFUROUS as SULFUROUS, L.PM10 as PM10, L.PM25 as PM25 
+            FROM LOCATIONPARSE L
+            JOIN SEOUL S ON L.MSRSTENAME = S.NAME
+           WHERE L.MSRSTENAME = #{type}
+	</select>
+</mapper>

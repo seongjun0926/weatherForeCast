@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	<debug />
+
+	<global-method-security pre-post-annotations="enabled" />
+
+	<http pattern="/login.do" security="none" />
+
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/index.do" access="hasAnyRole('ROLE_ADMIN, ROLE_USER')" />
+	
+		<!-- <form-login />  -->
+		<logout logout-url="/j_spring_security_logout" logout-success-url="/login.do" delete-cookies="JSESSIONID" invalidate-session="true"/>
+		<remember-me token-validity-seconds="2419200"/>
+		<!-- 로그인 페이지 지정    	-->
+ 		<form-login login-page="/login.do" 
+    				authentication-failure-url="/login.do?error"
+    				default-target-url="/index.do"
+    				always-use-default-target='true'/>  		
+    	 
+    	
+		<session-management>
+			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+		</session-management>
+
+		<access-denied-handler error-page="/Access_Denied.do" />
+	</http>
+	
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="guest" password="guest" authorities="ROLE_USER"/>	
+				<user name="admin" password="admin" authorities="ROLE_ADMIN"/>	
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+	
+	
+	<!-- 	spring security 커스터마이징 
+	<beans:bean id="shaPasswordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<beans:constructor-arg value="256" />
+	</beans:bean>
+	
+	<beans:bean id="userAuthenticationProvider" class="com.gsitm.springproject.security.provider.UserAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="userDetailsService" />
+		<beans:property name="passwordEncoder" ref="shaPasswordEncoder"/>
+	</beans:bean>
+
+	<beans:bean id="userDetailsService"	class="com.gsitm.springproject.dao.UserAuthenticationDAO">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="usersByUsernameQuery" value="{ CALL USP_LOGIN_SEL ( @P_CODE=? ) }" />
+		<beans:property name="authoritiesByUsernameQuery" value="{ CALL USP_LOGIN_LST ( @P_CODE=? ) }" />
+	</beans:bean>
+	
+	<beans:bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="" />
+	</beans:bean>
+	
+	<beans:bean id="successHandler"	class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl" value="/Login_Create_After.do" />
+		<beans:property name="alwaysUseDefaultTargetUrl" value="true" />
+	</beans:bean>
+	
+	<beans:bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:property name="loginFormUrl" value="/Login_Read.do" />
+	</beans:bean>	
+	
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="userAuthenticationProvider" />
+	</authentication-manager>
+	
+	<beans:bean id="customUsernamePasswordAuthenticationFilter" class="com.gsitm.springproject.security.filter.CustomUsernamePasswordAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="authenticationFailureHandler"	ref="failureHandler" />
+		<beans:property name="authenticationSuccessHandler"	ref="successHandler" />
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check.do" />
+	</beans:bean>
+	-->
+
+</beans:beans>

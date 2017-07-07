@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gsitm.springproject.mapper.MaxMinMapper">
+	                                                
+	<resultMap id="maxMinVo" type="com.gsitm.springproject.vo2.MaxMinVo">
+		<result property="temperatureType" column="type" javaType="String"/>
+		<result property="temperatureCount" column="count" javaType="String"/>
+	</resultMap>
+	
+	<select id="readMaxMin" resultMap="maxMinVo" parameterType="String">
+		select 
+		<choose>
+			<when test="_parameter.equals('MAX')">
+				MAX as type,
+			</when>
+			<otherwise>
+				MIN as type,
+			</otherwise>
+		</choose>
+		 count(1) as count from temperature
+		group by <choose>
+			<when test="_parameter.equals('MAX')">
+				MAX
+			</when>
+			<otherwise>
+				MIN
+			</otherwise>
+		</choose>
+	</select>
+
+</mapper>

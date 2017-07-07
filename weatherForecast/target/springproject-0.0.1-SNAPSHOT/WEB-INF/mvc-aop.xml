@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
+
+	<aop:aspectj-autoproxy />
+
+	<!-- Aspect -->
+	<bean id="advice" class="com.gsitm.springproject.aop.ExAdvice"/>
+	<!--<bean id="advice2" class="com.gsitm.springproject.aop.AnnotationAOP"/>-->
+
+	<aop:config>	
+		<aop:aspect id="aspecIintercepter" ref="advice">
+			<!-- Before Point Cut-->
+			<aop:pointcut id="pointcut_before" expression="execution(* com.gsitm.springproject..*Service.*(..))" />
+			<!--<aop:pointcut id="pointcut_before" expression="within(com.gsitm.springproject.*)" />-->
+			
+			<!-- Before Method Mapping-->
+			<aop:before method="pointCutBefore" pointcut-ref="pointcut_before" />
+
+			<!-- @AfterThrowing -->
+			<aop:pointcut id="pointCutAfterThrowing" expression="bean(*Service)" />
+			<aop:after-throwing method="pointCutAfterThrowing" throwing="error" pointcut-ref="pointCutAfterThrowing" />
+		</aop:aspect>
+	</aop:config>
+	
+</beans>
